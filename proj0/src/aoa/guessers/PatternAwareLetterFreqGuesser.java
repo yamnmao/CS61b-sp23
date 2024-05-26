@@ -1,6 +1,7 @@
 package aoa.guessers;
 
 import aoa.utils.FileUtils;
+import aoa.guessers.GetFrequencyMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
         //keepWords select words matching the pattern
         List<String> nw = this.keepWords2(pattern); //eg: zebra, media, delta
         //get character frequency map from
-        Map<Character, Integer> freq=this.getFrequencyMap(nw); //{a-3,b-1,d-2,e-3...}
+        Map<Character, Integer> freq=GetFrequencyMap.getFrequencyMap(nw); //{a-3,b-1,d-2,e-3...}
         char ch = '?';
         int max=0;
         for (char an: freq.keySet()) {
@@ -100,22 +101,16 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
 
 
     // 计算并返回一个列表中所有单词的字符频率映射。
-    public Map<Character, Integer> getFrequencyMap(List<String> lst) {
-        Map<Character, Integer> map = new TreeMap<>();
-        for (String word : lst) {
-            for (char c : word.toCharArray()) {
-                if (map.containsKey(c)) {
-                    int oc = map.get(c);
-                    map.put(c, oc + 1);
-                } else {
-                    map.put(c, 1);
-                }
-               /* char lowerCase = Character.toLowerCase(c);
-                map.put(lowerCase,map.getOrDefault(lowerCase,0)+1);*/
-            }
-        }
-        return map;
-    }
+//    public Map<Character, Integer> getFrequencyMap(List<String> lst) {
+//        Map<Character, Integer> map = new TreeMap<>();
+//        for (String word : lst) {
+//            for (char c : word.toCharArray()) {
+//               char lowerCase = Character.toLowerCase(c);
+//               map.put(lowerCase,map.getOrDefault(lowerCase,0)+1);
+//            }
+//        }
+//        return map;
+//    }
 
 
     public static void main(String[] args) {
