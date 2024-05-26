@@ -46,38 +46,8 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
         //iterate through the pattern, collect the character and respective indices
         for (char ch : pattern.toCharArray()) {
             //if the ch not equal to -, then put it to the map
-            if (!(ch == '-')) {    public List<String> keepWords(String pattern) {
-                Map<Character, Integer> map = new TreeMap<>();
-                List<String> copy = new ArrayList<>(words);
-                int index = 0;
+            if (!(ch == '-')) {
                 //iterate through the pattern, collect the character and respective indices
-                for (char ch : pattern.toCharArray()) {
-                    //if the ch not equal to -, then put it to the map
-                    if (!(ch == '-')) {
-                        map.put(ch, index);//TreeMap<Key,Value>,这里key是字符，value是字符的index
-                    }
-                    index++;
-            /*for example pattern is --e-(0,1,2,3), the first two -- will skip if statement
-            and index is increased to 2, when it meets "e", it will jump into
-            if statement and put the key-char ch, and the value-index 2 into the map
-            TreeMap:{e=2}
-             */
-                }
-                //iterate through the words (dictionary),for example, check the word: zebra
-                for (String word : words) {
-                    //iterate through the key(character from pattern) of the map
-                    for (char ab : map.keySet()) {//for example TreeMap:{e=1，a=4}，keyset=[e,a]
-                        //当key=e的时候，value=1
-                        //remove the word if the word doesn't have the char at the specific indice
-                        //ensure word length must less than key‘s index, otherwise get IndexOutOfBoundsException
-                        //比如说no这个单词一共长度只有2，然后当key=a的时候value=4，charat（4）就会报错，
-                        if (word.length()!=pattern.length()||!(word.charAt(map.get(ab)) == ab)) {
-                            copy.remove(word);
-                        }
-                    }
-                }
-                return copy;
-            }
                 map.put(ch, index);//TreeMap<Key,Value>,这里key是字符，value是字符的index
             }
             index++;
@@ -86,6 +56,7 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
             if statement and put the key-char ch, and the value-index 2 into the map
             TreeMap:{e=2}
              */
+
         }
         //iterate through the words (dictionary),for example, check the word: zebra
         for (String word : words) {
@@ -100,8 +71,9 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
                 }
             }
         }
-        return copy;
+                return copy;
     }
+
 
     public List<String> keepWords2(String pattern) {
         List<String> matchedWords = new ArrayList<>();
